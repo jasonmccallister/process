@@ -1,9 +1,15 @@
 package process
 
 import (
+	"fmt"
 	"io"
 	"os/exec"
 	"syscall"
+)
+
+var (
+	// ErrExecutableNotFound is returned when the executable is not found using exec.LookPath.
+	ErrExecutableNotFound = fmt.Errorf("process: executable not found")
 )
 
 // Opts for starting a process.
@@ -19,7 +25,7 @@ type Opts struct {
 func Start(opts Opts) error {
 	p, err := exec.LookPath(opts.Name)
 	if err != nil {
-		return err
+		return ErrExecutableNotFound
 	}
 
 	c := exec.Command(p, opts.Args...)
