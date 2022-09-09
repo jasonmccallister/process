@@ -11,7 +11,7 @@ import (
 func main() {
 	// start one process
 	go func() {
-		if err := process.Start(process.Options{
+		if err := process.Start(process.Opts{
 			Name:      "echo",
 			Args:      []string{"Hello"},
 			Writer:    os.Stdout,
@@ -20,7 +20,7 @@ func main() {
 			log.Fatal(err)
 		}
 
-		if err := process.Start(process.Options{
+		if err := process.Start(process.Opts{
 			Name:      "echo",
 			Args:      []string{"world"},
 			Writer:    os.Stdout,

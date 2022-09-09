@@ -6,8 +6,8 @@ import (
 	"syscall"
 )
 
-// Options for starting a process.
-type Options struct {
+// Opts for starting a process.
+type Opts struct {
 	Name              string
 	Args              []string
 	Writer            io.Writer
@@ -16,17 +16,17 @@ type Options struct {
 }
 
 // Start a process.
-func Start(o Options) error {
-	p, err := exec.LookPath(o.Name)
+func Start(opts Opts) error {
+	p, err := exec.LookPath(opts.Name)
 	if err != nil {
 		return err
 	}
 
-	c := exec.Command(p, o.Args...)
-	c.SysProcAttr = &syscall.SysProcAttr{Setpgid: o.SetProcessGroupID}
+	c := exec.Command(p, opts.Args...)
+	c.SysProcAttr = &syscall.SysProcAttr{Setpgid: opts.SetProcessGroupID}
 
-	c.Stdout = o.Writer
-	c.Stderr = o.ErrWriter
+	c.Stdout = opts.Writer
+	c.Stderr = opts.ErrWriter
 
 	if err := c.Run(); err != nil {
 		return err
