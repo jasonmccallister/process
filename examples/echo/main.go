@@ -1,16 +1,3 @@
-# Process
-
-A simple Go module designed to make running external processes easier.
-
-## Installation
-
-```bash
-go get github.com/jasonmccallister/process
-```
-
-## Usage
-
-```go
 package main
 
 import (
@@ -48,4 +35,3 @@ func main() {
 		log.Fatal(err)
 	}
 }
-```
